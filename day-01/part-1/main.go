@@ -18,7 +18,6 @@ func main() {
 
 	list_one := []int{}
 	list_two := []int{}
-	distances := []int{}
 
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
@@ -30,21 +29,22 @@ func main() {
 		list_two = append(list_two, value_two)
 	}
 
+	if err := scanner.Err(); err != nil {
+		fmt.Println(err)
+	}
+
 	sort.Ints(list_one)
 	sort.Ints(list_two)
+
+	sum := 0
 
 	for index, value_one := range list_one {
 		value_two := list_two[index]
 		distance := value_one - value_two
-		distances = append(distances, absolute_value(distance))
+		sum += absolute_value(distance)
 	}
 
-	distance_sum := sum_array(distances)
-	fmt.Println(distance_sum)
-
-	if err := scanner.Err(); err != nil {
-		fmt.Println(err)
-	}
+	fmt.Println(sum)
 }
 
 func get_int(str string) int {

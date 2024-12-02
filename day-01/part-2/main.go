@@ -28,6 +28,10 @@ func main() {
 		list_two = append(list_two, value_two)
 	}
 
+	if err := scanner.Err(); err != nil {
+		fmt.Println(err)
+	}
+
 	score_by_value := make(map[int]int)
 	sum := 0
 
@@ -36,21 +40,24 @@ func main() {
 		if exists {
 			sum += score
 		} else {
-			number_found := 0
-			for _, value_two := range list_two {
-				if value_one == value_two {
-					number_found++
-				}
-			}
+			number_found := get_occurences(value_one, list_two)
 			score_by_value[value_one] = value_one * number_found
 			sum += score_by_value[value_one]
 		}
 	}
-	fmt.Println(sum)
 
-	if err := scanner.Err(); err != nil {
-		fmt.Println(err)
+	fmt.Println(sum)
+}
+
+func get_occurences(target int, int_arr []int) int {
+	found := 0
+	for _, value := range int_arr {
+		if value == target {
+			found++
+		}
 	}
+
+	return found
 }
 
 func get_int(str string) int {
