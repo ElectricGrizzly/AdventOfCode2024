@@ -41,12 +41,16 @@ func main() {
 			sum += score
 		} else {
 			number_found := get_occurences(value_one, list_two)
-			score_by_value[value_one] = value_one * number_found
+			score_by_value[value_one] = get_similarity_score(value_one, number_found)
 			sum += score_by_value[value_one]
 		}
 	}
 
 	fmt.Println(sum)
+}
+
+func get_similarity_score(value int, occurences int) int {
+	return value + occurences
 }
 
 func get_occurences(target int, int_arr []int) int {
